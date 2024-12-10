@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜數字遊戲 - 第03關</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        input, button {
+            font-size: 1.2em;
+            margin: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>猜數字遊戲 - 第03關</h1>
+    <p>猜一個數字，範圍是 1 到 400。</p>
+    <p>你有 <span id="remaining-attempts">10</span> 次機會。</p>
+    <input type="number" id="guess-input" min="1" max="400" placeholder="輸入數字">
+    <button id="submit-guess">猜測</button>
+    <p id="message"></p>
+
+    <!-- 新增的圖片 -->
+    <img src="image/body004.jpg" alt="猜數字遊戲圖片">
+
+    <script>
+        const randomNumber = Math.floor(Math.random() * 400) + 1;
+        let attempts = 10;
+
+        document.getElementById('submit-guess').addEventListener('click', () => {
+            const userGuess = parseInt(document.getElementById('guess-input').value, 10);
+            const message = document.getElementById('message');
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 400) {
+                message.textContent = '請輸入有效的數字！';
+                return;
+            }
+
+            attempts--;
+            document.getElementById('remaining-attempts').textContent = attempts;
+
+            if (userGuess === randomNumber) {
+                message.textContent = '恭喜你，答對了！';
+                setTimeout(() => {
+                    window.location.href = 'level5.html';
+                }, 2000);
+            } else if (attempts > 0) {
+                message.textContent = userGuess > randomNumber 
+                    ? '太高了，試試小一點的數字！' 
+                    : '太低了，試試大一點的數字！';
+            } else {
+                message.textContent = '次數用完！回到上一關...';
+                setTimeout(() => {
+                    window.location.href = 'index.html'; // 或者上一個關卡的網址
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
