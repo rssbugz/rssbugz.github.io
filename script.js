@@ -13,10 +13,10 @@ function getOptions() {
     .then(data => {
       questionDiv.textContent = data.question; // 假設後端回傳問題
       optionsDiv.innerHTML = '';
-      data.options.forEach((option, index) => {
+      data.options.forEach((option, index1) => {
         const button = document.createElement('button');
         button.textContent = option;
-        button.onclick = () => checkAnswer(index, data.correctAnswer);
+        button.onclick = () => checkAnswer(index1, data.correctAnswer);
         optionsDiv.appendChild(button);
       });
     });
